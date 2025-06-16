@@ -24,3 +24,6 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["hu_datasets*"]
+
+[tool.setuptools.package-data]
+hu_datasets = ["**/*.json"]

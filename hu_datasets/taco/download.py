@@ -23,7 +23,6 @@ def download_and_prepare_taco(path):
     logger.info(f"Base directory is: {base_directory.absolute()}")
     
     annotations_dir = Path(base_directory / "annotations.json").resolve()      
-    dataset_dir = os.path.dirname(annotations_dir)
     
     download_to_path_annotations = download_to_path / "annotations.json"  
     if not download_to_path_annotations.exists():
