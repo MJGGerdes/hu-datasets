@@ -37,8 +37,9 @@ def download_and_prepare_taco(path):
     
     logger.info('Note. If for any reason the connection is broken. Just call me again and I will start where I left.')
     
-    logger.info(f'Load annotations from file {annotations_dir}')
-    with open(annotations_dir, 'r') as f:
+    logger.info(f'Load annotations from file {download_to_path_annotations}')
+    dataset_dir = os.path.dirname(download_to_path_annotations)
+    with open(download_to_path_annotations, 'r') as f:
         annotations = json.loads(f.read())
     
         images= annotations['images']
@@ -80,10 +81,10 @@ def download_and_prepare_taco(path):
                 # Load and Save Image
                 response = requests.get(url_original)
                 img = Image.open(BytesIO(response.content))
-                # if img._getexif():
-                #     img.save(file_path, exif=img.info["exif"])
-                # else:
-                #     img.save(file_path)
+                if img._getexif():
+                    img.save(file_path, exif=img.info["exif"])
+                else:
+                    img.save(file_path)
     
             # Show loading bar
             bar_size = 30
