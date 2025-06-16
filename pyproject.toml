@@ -1,0 +1,25 @@
+[project]
+name = "datasets"
+version = "0.1.0"
+description = "Utility code for dataset downloading and preparation"
+authors = [{ name = "MJGGerdes" }]
+readme = "README.md"
+dependencies =[
+  "black==25.1.0", 
+ "isort==6.0.1", 
+  "keras==3.6.0",  "loguru==0.7.2",  
+  "metrics==0.0.2",  "mlflow==2.20.4",  "mypy==1.13.0",  
+  "numpy==2.0.2",  "pandas==2.2.2",  "requests==2.32.3",  
+  "ruff==0.11.2",  "scikit-learn==1.5.1",  
+   "torch==2.6.0",  "torchvision==0.21.0",  "transformers==4.49.0", "umap_learn==0.5.7", 
+   "seaborn==0.13.2", "plotly==6.0.1", "openpyxl==3.1.5", "streamlit==1.44.1", "pydicom==3.0.1",
+   "opencv-python==4.11.0.86"
+]
+requires-python = "==3.12.*"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["datasets"]
