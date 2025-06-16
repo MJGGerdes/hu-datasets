@@ -1,5 +1,5 @@
 [project]
-name = "datasets"
+name = "hu-datasets"
 version = "0.1.0"
 description = "Utility code for dataset downloading and preparation"
 authors = [{ name = "MJGGerdes" }]
