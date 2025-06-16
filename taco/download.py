@@ -11,17 +11,18 @@ import requests
 from io import BytesIO
 import sys
 from pathlib import Path
+from loguru import logger
 
 def download_and_prepare_taco():
     current_file_path = Path(__file__)
     base_directory = current_file_path.parent.parent
-    print(f"Base directory is: {base_directory.absolute()}")
+    logger.info(f"Base directory is: {base_directory.absolute()}")
     
     annotations_dir = Path(base_directory / "dataset/taco/annotations.json").resolve()
         
     dataset_dir = os.path.dirname(annotations_dir)
     
-    print('Note. If for any reason the connection is broken. Just call me again and I will start where I left.')
+    logger.info('Note. If for any reason the connection is broken. Just call me again and I will start where I left.')
     
     # Load annotations
     with open(annotations_dir, 'r') as f:
@@ -37,7 +38,7 @@ def download_and_prepare_taco():
             url_resized = image['flickr_640_url']
     
             file_path = os.path.join(dataset_dir, file_name)
-            print(file_path)
+            logger.info(file_path)
             # Create subdir if necessary
             subdir = os.path.dirname(file_path)
             if not os.path.isdir(subdir):
@@ -55,8 +56,8 @@ def download_and_prepare_taco():
             # Show loading bar
             bar_size = 30
             x = int(bar_size * i / nr_images)
-            sys.stdout.write("%s[%s%s] - %i/%i\r" % ('Loading: ', "=" * x, "." * (bar_size - x), i, nr_images))
+            logger.info("%s[%s%s] - %i/%i\r" % ('Loading: ', "=" * x, "." * (bar_size - x), i, nr_images))
             sys.stdout.flush()
             i+=1
     
-        sys.stdout.write('Finished\n')
+        logger.info('Finished downlaoding images')
