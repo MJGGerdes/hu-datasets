@@ -1,6 +1,6 @@
 [project]
 name = "hu-datasets"
-version = "0.1.1"
+version = "0.1.2"
 description = "Utility code for dataset downloading and preparation"
 authors = [{ name = "MJGGerdes" }]
 readme = "README.md"
@@ -23,3 +23,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 packages = ["hu_datasets"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["hu_datasets*"]
