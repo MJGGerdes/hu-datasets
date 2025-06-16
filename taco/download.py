@@ -24,7 +24,7 @@ def download_and_prepare_taco():
     
     logger.info('Note. If for any reason the connection is broken. Just call me again and I will start where I left.')
     
-    # Load annotations
+    logger.info(f'Load annotations from file {annotations_dir}')
     with open(annotations_dir, 'r') as f:
         annotations = json.loads(f.read())
     
