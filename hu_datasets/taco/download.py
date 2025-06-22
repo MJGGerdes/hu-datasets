@@ -11,20 +11,19 @@ from pathlib import Path
 import requests
 from loguru import logger
 from PIL import Image
+from tqdm import tqdm
 
 
-def download_and_prepare_taco(path):
-    download_to_path = Path(path)
-    download_to_path.mkdir(parents=True, exist_ok=True)
-    logger.info(f"download_to_path directory is: {download_to_path.absolute()}")
+def download_and_prepare_taco(dataset_path: Path) -> None:
+
+    dataset_path.mkdir(parents=True, exist_ok=True)
 
     current_file_path = Path(__file__)
     base_directory = current_file_path.parent
     logger.info(f"Base directory is: {base_directory.absolute()}")
-
     annotations_dir = Path(base_directory / "annotations.json").resolve()
 
-    download_to_path_annotations = download_to_path / "annotations.json"
+    download_to_path_annotations = dataset_path / "annotations.json"
     if not download_to_path_annotations.exists():
         logger.info(
             f"annotations.json not downloaded yet. Downloading from {annotations_dir}"
@@ -69,16 +68,13 @@ def download_and_prepare_taco(path):
 
         logger.info("Start downloading images")
         logger.info(f"Found {nr_images} images to download")
-        for i in range(nr_images):
-
-            image = images[i]
+        for image in tqdm(images, desc="downloading image"):
 
             file_name = image["file_name"]
             url_original = image["flickr_url"]
-            url_resized = image["flickr_640_url"]
 
             file_path = os.path.join(dataset_dir, file_name)
-            logger.info(file_path)
+            #logger.info(file_path)
             # Create subdir if necessary
             subdir = os.path.dirname(file_path)
             if not os.path.isdir(subdir):
@@ -93,17 +89,11 @@ def download_and_prepare_taco(path):
                 else:
                     img.save(file_path)
 
-            # Show loading bar
-            bar_size = 30
-            x = int(bar_size * i / nr_images)
-            logger.info(
-                "%s[%s%s] - %i/%i\r"
-                % ("Loading: ", "=" * x, "." * (bar_size - x), i, nr_images)
-            )
-            i += 1
-
         logger.info("Finished downloading images")
 
 
 if __name__ == "__main__":
-    download_and_prepare_taco("data/taco")
+    current_file_path = Path(__file__)
+    download_directory = current_file_path.parent.parent.parent / "data/taco"
+    logger.info(f"Download directory is: {download_directory.absolute()}")
+    download_and_prepare_taco(download_directory)
