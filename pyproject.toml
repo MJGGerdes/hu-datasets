@@ -15,7 +15,7 @@ dependencies =[
   "seaborn==0.13.2", "plotly==6.0.1", "openpyxl==3.1.5", "streamlit==1.44.1", "pydicom==3.0.1",
   "opencv-python==4.11.0.86"
 ]
-requires-python = "==3.12.*"
+requires-python = "==3.10.*"
 
 [build-system]
 requires = ["setuptools>=61.0"]

@@ -29,7 +29,7 @@ def download_and_prepare_taco(dataset_path: Path) -> None:
             f"annotations.json not downloaded yet. Downloading from {annotations_dir}"
         )
         try:
-            with (
+            with ( 
                 open(annotations_dir, "rb") as src,
                 open(download_to_path_annotations, "wb") as dst,
             ):
@@ -74,7 +74,6 @@ def download_and_prepare_taco(dataset_path: Path) -> None:
             url_original = image["flickr_url"]
 
             file_path = os.path.join(dataset_dir, file_name)
-            #logger.info(file_path)
             # Create subdir if necessary
             subdir = os.path.dirname(file_path)
             if not os.path.isdir(subdir):
@@ -82,12 +81,12 @@ def download_and_prepare_taco(dataset_path: Path) -> None:
 
             if not os.path.isfile(file_path):
                 # Load and Save Image
-                response = requests.get(url_original)
-                img = Image.open(BytesIO(response.content))
-                if img._getexif():
-                    img.save(file_path, exif=img.info["exif"])
-                else:
-                    img.save(file_path)
+                try:
+                    response = requests.get(url_original, stream=True, timeout=30)
+                    img = Image.open(BytesIO(response.content))
+                    img.save(file_path, exif=img.info.get("exif"))
+                except requests.exceptions.RequestException as e:
+                    logger.error(f"Failed to download {url_original}: {e}")
 
         logger.info("Finished downloading images")
 
