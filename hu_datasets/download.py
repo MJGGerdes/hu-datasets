@@ -1,5 +1,6 @@
 from pathlib import Path
 from loguru import logger
+
 from enum import Enum
 from taco.download import download_and_prepare_taco
 from trashnet.download import download_and_prepare_trashnet
@@ -33,11 +34,11 @@ class DatasetDownloader:
 
 if __name__ == "__main__":
     current_file_path = Path(__file__)
-    download_directory = current_file_path / "data"
+    download_directory = current_file_path.parent / "data"
     logger.info(f"Download directory is: {download_directory.absolute()}")
 
     # Example usage
-    # DatasetDownloader.create(DatasetType.TACO, download_directory / "taco")
-    DatasetDownloader.create(DatasetType.TRASHNET, download_directory / "trashnet")
+    DatasetDownloader.create(DatasetType.TACO, download_directory / "taco")
+    # DatasetDownloader.create(DatasetType.TRASHNET, download_directory / "trashnet")
     # DatasetDownloader.create(DatasetType.CIFAR10, download_directory / "cifar10")
     # DatasetDownloader.create(DatasetType.RSNA, download_directory / "rsna")     
