@@ -6,20 +6,17 @@ from pathlib import Path
 from loguru import logger
 
 
-def download_and_prepare_trashnet(path):
-    download_to_path = Path(path)
-    download_to_path.mkdir(parents=True, exist_ok=True)
-    logger.info(f"download_to_path directory is: {download_to_path.absolute()}")
-
+def download_and_prepare_trashnet(path: Path):
+    
 
     current_file_path = Path(__file__)
-    base_directory = current_file_path.parent
-    logger.info(f"Base directory is: {base_directory.absolute()}")
+    zip_directory = current_file_path.parent
+    logger.info(f"Zip directory is: {zip_directory.absolute()}")
 
-    zip_path = Path(base_directory / "trashnet.zip").resolve()
+    zip_path = Path(zip_directory / "trashnet.zip").resolve()
 
     # Target directory to extract to
-    extract_dir = download_to_path 
+    extract_dir = path 
 
     # Function to check if directory exists and is not empty
     def is_extracted(dir_path):
@@ -36,4 +33,8 @@ def download_and_prepare_trashnet(path):
 
 
 if __name__ == "__main__":
-    download_and_prepare_trashnet("data/trashnet")
+    
+    current_file_path = Path(__file__)
+    download_directory = current_file_path.parent.parent.parent / "data/trashnet"
+    logger.info(f"Download directory is: {download_directory.absolute()}")
+    download_and_prepare_trashnet(download_directory )
