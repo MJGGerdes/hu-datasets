@@ -1,13 +1,10 @@
 from pathlib import Path
 from loguru import logger
-import sys
 from enum import Enum
-parent_dir = Path(__file__).resolve().parent.parent
-sys.path.append(str(parent_dir))
-from taco.download import download_and_prepare_taco
-from trashnet.download import download_and_prepare_trashnet
-from cifar10.download import download_and_prepare_cifar10
-from rsna.download import download_and_prepare_rsna
+from download_cifar10 import download_and_prepare_cifar10
+from download_rsna import download_and_prepare_rsna
+from download_taco import download_and_prepare_taco
+from download_trashnet import download_and_prepare_trashnet
 
 
 class DatasetType(Enum):
