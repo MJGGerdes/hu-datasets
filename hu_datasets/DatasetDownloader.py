@@ -2,17 +2,10 @@ from pathlib import Path
 from loguru import logger
 from enum import Enum
 
-from .download_cifar10 import download_and_prepare_cifar10
-from .download_rsna import download_and_prepare_rsna
 from .download_taco import download_and_prepare_taco
 from .download_trashnet import download_and_prepare_trashnet
-
-__all__ = [
-    "download_and_prepare_cifar10",
-    "download_and_prepare_rsna",
-    "download_and_prepare_taco",
-    "download_and_prepare_trashnet",
-]
+from .download_rsna import download_and_prepare_rsna
+# from .download_cifar10 import download_and_prepare_cifar10  # eventueel later
 
 
 
