@@ -80,6 +80,7 @@ def download_and_prepare_taco(dataset_path: Path) -> None:
             url_original = image["flickr_url"]
 
             file_path = os.path.join(dataset_dir, file_name)
+            logger.info(f"File path: {file_path}")
             # Create subdir if necessary
             subdir = os.path.dirname(file_path)
             if not os.path.isdir(subdir):
