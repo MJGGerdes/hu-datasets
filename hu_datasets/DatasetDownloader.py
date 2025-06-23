@@ -37,6 +37,7 @@ class DatasetDownloader:
 
         return creators[dataset_type]()
 
+# python -m hu_datasets.DatasetDownloader to run the script directly
 if __name__ == "__main__":
     current_file_path = Path(__file__)
     download_directory = current_file_path.parent / "data"
@@ -44,6 +45,6 @@ if __name__ == "__main__":
 
     # Example usage
     DatasetDownloader.create(DatasetType.TACO, download_directory)
-    # DatasetDownloader.create(DatasetType.TRASHNET, download_directory / "trashnet")
-    # DatasetDownloader.create(DatasetType.CIFAR10, download_directory / "cifar10")
-    # DatasetDownloader.create(DatasetType.RSNA, download_directory / "rsna")     
+    # DatasetDownloader.create(DatasetType.TRASHNET, download_directory)
+    # DatasetDownloader.create(DatasetType.CIFAR10, download_directory)
+    # DatasetDownloader.create(DatasetType.RSNA, download_directory)     
