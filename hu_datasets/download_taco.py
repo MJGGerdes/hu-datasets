@@ -51,6 +51,7 @@ def download_and_prepare_taco(dataset_path: Path) -> None:
 
     logger.info(f"Load annotations from file {download_to_path_annotations} to {dataset_path}")
     dataset_dir = os.path.dirname(dataset_path)
+    logger.info(f"Dataset download directory is: {dataset_dir}")
     with open(download_to_path_annotations, "r") as f:
         annotations = json.loads(f.read())
 
