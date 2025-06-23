@@ -43,7 +43,7 @@ if __name__ == "__main__":
     logger.info(f"Download directory is: {download_directory.absolute()}")
 
     # Example usage
-    DatasetDownloader.create(DatasetType.TACO, download_directory / "taco")
+    DatasetDownloader.create(DatasetType.TACO, download_directory)
     # DatasetDownloader.create(DatasetType.TRASHNET, download_directory / "trashnet")
     # DatasetDownloader.create(DatasetType.CIFAR10, download_directory / "cifar10")
     # DatasetDownloader.create(DatasetType.RSNA, download_directory / "rsna")     

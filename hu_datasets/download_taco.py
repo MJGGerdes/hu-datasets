@@ -50,51 +50,34 @@ def download_and_prepare_taco(dataset_path: Path) -> None:
 
 
     logger.info(f"Load annotations from file {download_to_path_annotations} to {dataset_path}")
-    dataset_dir = os.path.dirname(dataset_path)
-    logger.info(f"Dataset download directory is: {dataset_dir}")
+    # dataset_dir = os.path.dirname(dataset_path)
+    # logger.info(f"Dataset download directory is: {dataset_dir}")
     with open(download_to_path_annotations, "r") as f:
         annotations = json.loads(f.read())
 
         images = annotations["images"]
         nr_images = len(images)
 
-        # # Check if all images already are downloaded
-        # all_exist = True
-        # for image in images:
-        #     file_name = image["file_name"]
-        #     file_path = os.path.join(dataset_dir, file_name)
-        #     if not os.path.isfile(file_path):
-        #         all_exist = False
-        #         break
-
-        # if all_exist:
-        #     logger.info("All images already downloaded. Skipping download.")
-        #     return
-        # else:
-        #     logger.info("Not all images are downloaded. Proceeding with download.")
-
         logger.info("Start downloading images")
         logger.info(f"Found {nr_images} images to download")
-        logger.info(f"Dataset download directory is: {dataset_dir}")
         for image in tqdm(images, desc="downloading image"):
 
             file_name = image["file_name"]
             url_original = image["flickr_url"]
 
-            file_path = os.path.join(dataset_dir, file_name)
-            #logger.info(f"File path: {file_path}")
-            # Create subdir if necessary
-            subdir = os.path.dirname(file_path)
-            logger.info(f"Dataset subdir is: {subdir}")
-            if not os.path.isdir(subdir):
-                os.mkdir(subdir)
+            file_path = dataset_path / file_name
+            file_path.parent.mkdir(parents=True, exist_ok=True)
 
-            if not os.path.isfile(file_path):
-                # Load and Save Image
+            if not file_path.is_file():
                 try:
                     response = requests.get(url_original, stream=True, timeout=30)
                     img = Image.open(BytesIO(response.content))
-                    img.save(file_path, exif=img.info.get("exif"))
+
+                    if "exif" in img.info:
+                        img.save(file_path, exif=img.info["exif"])
+                    else:
+                        img.save(file_path)
+
                 except requests.exceptions.RequestException as e:
                     logger.error(f"Failed to download {url_original}: {e}")
 
