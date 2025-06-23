@@ -16,8 +16,11 @@ CLASS_MAPPING = {
     "Normal": "normal",
 }
 
+ZIP_FILE = "rsna_dataset.zip"
 
-def download_zip(zip_path: Path):
+
+def download_zip(dataset_path: Path):
+    zip_path = dataset_path / ZIP_FILE
     if not zip_path.exists():
         logger.info("Downloading dataset with gdown...")
         gdown.download(URL, output=str(zip_path), fuzzy=True, quiet=False)
@@ -25,7 +28,8 @@ def download_zip(zip_path: Path):
         logger.info("Zipfile already exists. Skipping download.")
 
 
-def extract_zip(zip_path: Path, extract_dir: Path):
+def extract_zip(dataset_path: Path):
+    zip_path = dataset_path / ZIP_FILE
     logger.info("extract_zip...all *.png and stage2_train_metadata.csv files will be extracted")
     with zipfile.ZipFile(zip_path, "r") as zip_ref:
         relevant_files = [
@@ -35,12 +39,12 @@ def extract_zip(zip_path: Path, extract_dir: Path):
         ]
 
         for file in tqdm(relevant_files, desc="Extracting"):
-            zip_ref.extract(file, extract_dir)
+            zip_ref.extract(file, dataset_path)
 
 
 def get_unique_patientIds(extract_dir: Path) -> pd.DataFrame:
     csv_path = next(extract_dir.rglob("stage2_train_metadata.csv"), None)
-    assert csv_path, "Could not find stage_2_detailed_class_info.csv"
+    assert csv_path, "Could not find stage2_train_metadata.csv"
     logger.info(f"Reading CSV: {csv_path}")
     df = pd.read_csv(csv_path)
     logger.info(f"Total rows in csv: {len(df)}")
@@ -55,6 +59,7 @@ def get_unique_patientIds(extract_dir: Path) -> pd.DataFrame:
         df = df.drop_duplicates("patientId")
 
     logger.info(f"Unique patientIds remaining: {len(df)}")
+    
     return df
 
 
@@ -71,7 +76,6 @@ def reorder_images(dataset_path: Path) -> None:
         patient_id = row["patientId"]
         class_name = row["class"]
         dst_folder = CLASS_MAPPING.get(class_name, "unknown")
-
         dst_path = dataset_path / dst_folder / f"{patient_id}.png"
 
         src_path = find_file_recursive(dataset_path, f"{patient_id}.png")
@@ -85,19 +89,23 @@ def find_file_recursive(root_dir: Path, filename: str) -> Path | None:
     matches = list(root_dir.rglob(filename))
     return matches[0] if matches else None
 
-def cleanup_zip(zip_path: Path):
-    if zip_path.exists():
-        zip_path.unlink()
-        logger.info("Zipfile removed after successful processing.")
+def cleanup_files(root_path: Path):
+    # zip_file = root_path / ZIP_FILE
+    # if zip_file.exists():
+    #     zip_file.unlink()
+    #     logger.info("Zipfile removed after successful processing.")
+    old_dir = root_path / "Training"
+    if old_dir.exists():
+        shutil.rmtree(old_dir)
+        logger.info("Old 'Training' directory removed after reordering images.")
 
 
 def download_and_prepare_rsna(dataset_path: Path) -> None:
     dataset_path.mkdir(parents=True, exist_ok=True)
-    zip_file = dataset_path / "rsna_dataset.zip"
-    download_zip(zip_file)
-    extract_zip(zip_file, dataset_path)
-    reorder_images(dataset_path)
-    # cleanup_zip(zip_path)
+    download_zip(dataset_path)
+    # extract_zip(dataset_path)
+    # reorder_images(dataset_path)
+    cleanup_files(dataset_path)
     logger.success("Done! RSNA dataset is ready for use.")
 
 
