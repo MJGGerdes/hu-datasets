@@ -20,12 +20,16 @@ class DatasetDownloader:
     @staticmethod
     def create(dataset_type: DatasetType, dataset_path: Path) -> None:
         logger.info(f"Creating dataset downloader for {dataset_type.name} at {dataset_path}")
-
+        download_to = dataset_path / dataset_type.name
+        
+        download_to.mkdir(parents=True, exist_ok=True)
+        logger.info(f"Download to directory is: {download_to.absolute()}")
+            
         creators = {
-            DatasetType.TACO: lambda: download_and_prepare_taco(dataset_path),
-            DatasetType.TRASHNET: lambda: download_and_prepare_trashnet(dataset_path),
-            DatasetType.CIFAR10: lambda: download_and_prepare_cifar10(dataset_path),
-            DatasetType.RSNA: lambda: download_and_prepare_rsna(dataset_path)
+            DatasetType.TACO: lambda: download_and_prepare_taco(download_to),
+            DatasetType.TRASHNET: lambda: download_and_prepare_trashnet(download_to),
+            DatasetType.CIFAR10: lambda: download_and_prepare_cifar10(download_to),
+            DatasetType.RSNA: lambda: download_and_prepare_rsna(download_to)
         }
 
         if dataset_type not in creators:

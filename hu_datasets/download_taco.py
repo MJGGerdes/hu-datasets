@@ -16,18 +16,23 @@ from tqdm import tqdm
 
 def download_and_prepare_taco(dataset_path: Path) -> None:
 
-    dataset_path.mkdir(parents=True, exist_ok=True)
+    
 
-    current_file_path = Path(__file__)
-    base_directory = current_file_path.parent
-    logger.info(f"Base directory is: {base_directory.absolute()}")
-    annotations_dir = Path(base_directory / "annotations.json").resolve()
+    # current_file_path = Path(__file__)
+    # base_directory = current_file_path.parent
+    logger.info(f"Base directory is: {dataset_path.absolute()}")
+    
+    annotations_dir = Path(__file__).parent / "annotations.json"
+    logger.info(f"Annotations directory is: {annotations_dir.absolute()}")
+    if annotations_dir.exists():
+        logger.info("Annotations.json found in source directory.")
+    
+    # download annotations.json from the source directory to the dataset path
+    #annotations_dir = Path(base_directory / "annotations.json").resolve()
 
     download_to_path_annotations = dataset_path / "annotations.json"
     if not download_to_path_annotations.exists():
-        logger.info(
-            f"annotations.json not downloaded yet. Downloading from {annotations_dir}"
-        )
+        logger.info(f"annotations.json not downloaded yet. Downloading from {annotations_dir}")
         try:
             with ( 
                 open(annotations_dir, "rb") as src,
@@ -43,8 +48,9 @@ def download_and_prepare_taco(dataset_path: Path) -> None:
         "Note. If for any reason the connection is broken. Just call me again and I will start where I left."
     )
 
-    logger.info(f"Load annotations from file {download_to_path_annotations}")
-    dataset_dir = os.path.dirname(download_to_path_annotations)
+
+    logger.info(f"Load annotations from file {download_to_path_annotations} to {dataset_path}")
+    dataset_dir = os.path.dirname(dataset_path)
     with open(download_to_path_annotations, "r") as f:
         annotations = json.loads(f.read())
 
