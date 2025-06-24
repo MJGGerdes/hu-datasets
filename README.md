@@ -4,7 +4,7 @@ Repository for downloading datasets.
 
 # RSNA Pneumonia Detection downloader and preprocessor
 
-This script automates the process of downloading, extracting, cleaning, and organizing the RSNA Pneumonia Detection Challenge dataset.
+This script automates the process of downloading, extracting, cleaning, and organizing the [RSNA Pneumonia Detection Challenge dataset](https://www.kaggle.com/datasets/iamtapendu/rsna-pneumonia-processed-dataset).
 
 ## What It Does
 
