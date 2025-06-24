@@ -1,13 +1,40 @@
 # datasets
-Repository for downloading datasets
+Repository for downloading datasets.
 
 
+# RSNA Pneumonia Detection downloader and preprocessor
+
+This script automates the process of downloading, extracting, cleaning, and organizing the RSNA Pneumonia Detection Challenge dataset.
+
+## What It Does
+
+1. **Download**
+   - Downloads the dataset zip file from a Google Drive link (via `gdown`) if not already present.
+
+2. **Extract**
+   - Extracts only the relevant files:
+     - `stage2_train_metadata.csv`
+     - All image files in `Training/Images/`
+
+3. **Process CSV**
+   - Reads the metadata CSV.
+   - Removes duplicate patient IDs, prioritizing rows where `Target == 1`.
+
+4. **Reorganize Images**
+   - Moves each image into a folder based on its class label:
+     - `"No Lung Opacity / Not Normal"` → `no_opacity/`
+     - `"Lung Opacity"` → `lung_opacity/`
+     - `"Normal"` → `normal/`
+
+5. **Clean up**
+   - Removes the old `Training/` directory (optional).
+   - Optionally removes the downloaded zip file (commented out).
 
 
 
 # TACO Dataset downloader and preprocessor
 
-This script downloads and prepares a simplified version of the [TACO dataset](http://tacodataset.org/), focusing only on images that contain **exactly one annotated object**.
+A simplified version of the [TACO dataset](http://tacodataset.org/), focusing only on images that contain **exactly one annotated object**.
 
 ## What it does
 
