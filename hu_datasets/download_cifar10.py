@@ -7,7 +7,7 @@ from torchvision import datasets
 def download_and_prepare_cifar10(download_to_path: Path) -> None:
 
     download_to_path.mkdir(parents=True, exist_ok=True)
-    
+
     logger.info(f"download_to_path directory is: {download_to_path.absolute()}")
 
     datasets.CIFAR10(root=download_to_path, train=True, download=True)

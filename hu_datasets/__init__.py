@@ -1,4 +1,4 @@
-from .DatasetDownloader import DatasetType, DatasetDownloader
+from .DatasetDownloader import DatasetDownloader, DatasetType
 
 __all__ = [
     "DatasetType",

@@ -1,6 +1,5 @@
 import shutil
 import zipfile
-from collections import Counter
 from pathlib import Path
 
 import gdown
@@ -30,7 +29,9 @@ def download_zip(dataset_path: Path):
 
 def extract_zip(dataset_path: Path):
     zip_path = dataset_path / ZIP_FILE
-    logger.info("extract_zip...all *.png and stage2_train_metadata.csv files will be extracted")
+    logger.info(
+        "extract_zip...all *.png and stage2_train_metadata.csv files will be extracted"
+    )
     with zipfile.ZipFile(zip_path, "r") as zip_ref:
         relevant_files = [
             f
@@ -59,7 +60,7 @@ def get_unique_patientIds(extract_dir: Path) -> pd.DataFrame:
         df = df.drop_duplicates("patientId")
 
     logger.info(f"Unique patientIds remaining: {len(df)}")
-    
+
     return df
 
 
@@ -88,6 +89,7 @@ def reorder_images(dataset_path: Path) -> None:
 def find_file_recursive(root_dir: Path, filename: str) -> Path | None:
     matches = list(root_dir.rglob(filename))
     return matches[0] if matches else None
+
 
 def cleanup_files(root_path: Path):
     # zip_file = root_path / ZIP_FILE
