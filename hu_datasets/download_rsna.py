@@ -113,6 +113,6 @@ def download_and_prepare_rsna(dataset_path: Path) -> None:
 
 if __name__ == "__main__":
     current_file_path = Path(__file__)
-    download_directory = current_file_path.parent.parent.parent / "data/rsna"
+    download_directory = current_file_path.parent / "data/rsna"
     logger.info(f"Download directory is: {download_directory.absolute()}")
     download_and_prepare_rsna(download_directory)
