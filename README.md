@@ -7,7 +7,7 @@ Repository for downloading datasets
 
 # TACO Dataset downloader and preprocessor
 
-This script downloads and prepares a simplified version of the [TACO dataset](https://tacodataset.org), focusing only on images that contain **exactly one annotated object**.
+This script downloads and prepares a simplified version of the [TACO dataset](http://tacodataset.org/), focusing only on images that contain **exactly one annotated object**.
 
 ## What it does
 
