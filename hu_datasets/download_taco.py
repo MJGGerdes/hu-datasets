@@ -13,7 +13,7 @@ ANNOTATION_FILE = "annotations.json"
 
 def download_and_prepare_taco(dataset_path: Path) -> None:
     logger.info(f"In download_and_prepare_taco with dir: {dataset_path.absolute()}")
-    dataset_path.mkdir(parents=True, exist_ok=True)  # ← ensure directory exists
+    dataset_path.mkdir(parents=True, exist_ok=True)
 
     download_to_path_annotations = get_annotation_file(dataset_path)
 
@@ -39,14 +39,7 @@ def download_and_prepare_taco(dataset_path: Path) -> None:
         for annotation in annotations:
             image_annotation_dict[annotation["image_id"]].append(annotation)
 
-        # Filter only the images with one object ->  dict(image_id, annotation)
-        single_annotation_dict = {
-            image_id: anns[0]
-            for image_id, anns in image_annotation_dict.items()
-            if len(anns) == 1
-        }
-
-        # Combine everything, so we have the image_id, supercategory and filename
+        # Combine everything, so we have the image_id, supercategory and filename, filter on images with one object only
         image_info_dict = {
             image_id: {
                 "category": supercategory_lookup[anns[0]["category_id"]],
@@ -62,9 +55,7 @@ def download_and_prepare_taco(dataset_path: Path) -> None:
         logger.info("Start downloading images")
         logger.info(f"Found {len(image_info_dict)} images to download")
         for image_info in tqdm(image_info_dict.values(), desc="downloading image"):
-
             process_image(image_info, dataset_path)
-
         logger.info("Finished downloading images")
 
 
@@ -79,15 +70,11 @@ def process_image(image_info: dict, dataset_path: Path) -> None:
 
     # Save image directly to category folder
     destination_dir = dataset_path / category
-    file_path = destination_dir / file_name
-
+    # Names of images are for example batch_1/000006.jpg and we only want the imagename itself
+    file_path = destination_dir / Path(file_name).name 
     if not file_path.is_file():
-        logger.warning(
-            f"Image {file_name} does not exist in {dataset_path}. It will be downloaded."
-        )
         # Create the category directory if it does not exist
         file_path.parent.mkdir(parents=True, exist_ok=True)
-
         try:
             response = requests.get(url_original, stream=True, timeout=30)
             img = Image.open(BytesIO(response.content))
@@ -99,10 +86,6 @@ def process_image(image_info: dict, dataset_path: Path) -> None:
 
         except requests.exceptions.RequestException as e:
             logger.error(f"Failed to download {url_original}: {e}")
-    else:
-        logger.info(
-            f"Image {file_name} already exists in {dataset_path}. No need to download."
-        )
 
 
 def get_annotation_file(dataset_path: Path) -> Path:
