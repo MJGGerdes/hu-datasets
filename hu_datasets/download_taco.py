@@ -7,6 +7,7 @@ import requests
 from loguru import logger
 from PIL import Image
 from tqdm import tqdm
+from DatasetDownloader import is_already_downloaded, register_is_downloaded
 
 ANNOTATION_FILE = "annotations.json"
 
