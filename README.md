@@ -1,13 +1,14 @@
 # datasets
-Repository for downloading datasets.
+Repository for downloading datasets. Project related to my thesis @ Master
 
 
-# RSNA Pneumonia Detection downloader and preprocessor
+# RSNA Pneumonia Detection Dataset downloader and preprocessor
 
-This script automates the process of downloading, extracting, cleaning, and organizing the [RSNA Pneumonia Detection Challenge dataset](https://www.kaggle.com/datasets/iamtapendu/rsna-pneumonia-processed-dataset).
+This dataset [RSNA Pneumonia Detection Challenge dataset](https://www.kaggle.com/datasets/iamtapendu/rsna-pneumonia-processed-dataset). This dataset enhanced the original dataset by converting the images in DICOM format to PNG format.
 
 ## What It Does
 
+The file ``` download_rsna.py``` implements all the logic to download the zip-file.
 1. **Download**
    - Downloads the dataset zip file from a Google Drive link (via `gdown`) if not already present.
 

@@ -15,6 +15,7 @@ class DatasetType(Enum):
     TRASHNET = 3
     RSNA = 4
 
+CHECK_FILE = "downloaded.txt"
 
 class DatasetDownloader:
     @staticmethod
@@ -39,6 +40,19 @@ class DatasetDownloader:
 
         return creators[dataset_type]()
 
+
+def is_already_downloaded(dataset_path: Path):
+    check_path = dataset_path / CHECK_FILE
+    if check_path.exists():
+        return true
+    return false
+
+def register_is_downloaded(dataset_path: Path):
+    check_path = dataset_path / CHECK_FILE
+    check_path.write_bytes(b"Download finished!")
+    
+    
+    
 
 # python -m hu_datasets.DatasetDownloader to run the script directly
 if __name__ == "__main__":
