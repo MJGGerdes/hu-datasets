@@ -6,7 +6,7 @@ from pathlib import Path
 import wget
 from loguru import logger
 from tqdm import tqdm
-from utils import (delete_dir, delete_zip, is_already_downloaded,
+from .utils import (delete_dir, delete_zip, is_already_downloaded,
                    register_is_downloaded)
 
 ANNOTATION_FILE = "annotations.json"
