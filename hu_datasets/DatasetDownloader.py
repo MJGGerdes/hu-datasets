@@ -2,13 +2,14 @@ from enum import Enum
 from pathlib import Path
 
 from loguru import logger
+from .utils import (delete_dir, delete_zip, is_already_downloaded,
+                   register_is_downloaded)
 
 from .download_cifar10 import download_and_prepare_cifar10
+from .download_clevr_count import download_and_prepare_clevr_count
 from .download_rsna import download_and_prepare_rsna
 from .download_taco import download_and_prepare_taco
 from .download_trashnet import download_and_prepare_trashnet
-from .download_clevr_count import download_and_prepare_clevr_count
-from utils import *
 
 
 class DatasetType(Enum):
@@ -17,7 +18,6 @@ class DatasetType(Enum):
     TRASHNET = 3
     RSNA = 4
     CLEVR_COUNT = 5
-
 
 
 class DatasetDownloader:
@@ -36,7 +36,9 @@ class DatasetDownloader:
             DatasetType.TRASHNET: lambda: download_and_prepare_trashnet(download_to),
             DatasetType.CIFAR10: lambda: download_and_prepare_cifar10(download_to),
             DatasetType.RSNA: lambda: download_and_prepare_rsna(download_to),
-            DatasetType.CLEVR_COUNT: lambda: download_and_prepare_clevr_count(download_to),
+            DatasetType.CLEVR_COUNT: lambda: download_and_prepare_clevr_count(
+                download_to
+            ),
         }
 
         if dataset_type not in creators:

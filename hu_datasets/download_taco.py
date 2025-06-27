@@ -7,7 +7,6 @@ import requests
 from loguru import logger
 from PIL import Image
 from tqdm import tqdm
-from DatasetDownloader import is_already_downloaded, register_is_downloaded
 
 ANNOTATION_FILE = "annotations.json"
 
@@ -72,7 +71,7 @@ def process_image(image_info: dict, dataset_path: Path) -> None:
     # Save image directly to category folder
     destination_dir = dataset_path / category
     # Names of images are for example batch_1/000006.jpg and we only want the imagename itself
-    file_path = destination_dir / Path(file_name).name 
+    file_path = destination_dir / Path(file_name).name
     if not file_path.is_file():
         # Create the category directory if it does not exist
         file_path.parent.mkdir(parents=True, exist_ok=True)

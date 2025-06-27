@@ -4,11 +4,12 @@ from pathlib import Path
 import gdown
 from loguru import logger
 from tqdm import tqdm
-from utils import is_already_downloaded, register_is_downloaded
-
 
 ZIP_FILE = "trashnet.zip"
-URL = "https://drive.google.com/file/d/1oJtdbuhJDWD56Rx-WDqJhTTQelXb1T2b/view?usp=sharing"
+URL = (
+    "https://drive.google.com/file/d/1oJtdbuhJDWD56Rx-WDqJhTTQelXb1T2b/view?usp=sharing"
+)
+
 
 def download_zip(dataset_path: Path):
     zip_path = dataset_path / ZIP_FILE

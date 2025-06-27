@@ -6,7 +6,6 @@ import gdown
 import pandas as pd
 from loguru import logger
 from tqdm import tqdm
-from utils import is_already_downloaded, register_is_downloaded
 
 URL = "https://drive.google.com/file/d/1FaWb6Kq7GRBu9J5EvoBNIDqNMMG_46W5/view?usp=drive_link"
 
@@ -26,9 +25,6 @@ def download_zip(dataset_path: Path):
         gdown.download(URL, output=str(zip_path), fuzzy=True, quiet=False)
     else:
         logger.info("Zipfile already exists. Skipping download.")
-        
-        
-
 
 
 def extract_zip(dataset_path: Path):
