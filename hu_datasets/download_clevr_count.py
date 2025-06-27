@@ -34,6 +34,7 @@ def download_zip(dataset_path: Path):
 def extract_zip(dataset_path: Path):
     zip_path = dataset_path / Path(URL).name
     print(f"Extract zip: {zip_path}")
+    
     with zipfile.ZipFile(zip_path, "r") as zip_ref:
         relevant_files = [
             f for f in zip_ref.namelist() if SCENES_FILE in f or "images/train" in f
@@ -41,6 +42,8 @@ def extract_zip(dataset_path: Path):
 
         for file in tqdm(relevant_files, desc="Extracting"):
             zip_ref.extract(file, dataset_path)
+            if SCENES_FILE in file:
+                break
 
 
 def reorder_images(dataset_path: Path):
@@ -62,21 +65,18 @@ def reorder_images(dataset_path: Path):
             label_dir = Path(dataset_path / str(count))
             logger.info(f"Create subfolder for count items: {count}")
             (label_dir).mkdir(exist_ok=True)
-
         logger.info(f"Total images in dataset: {len(image_objects.keys())}")
-        for image_object in image_objects:
-
-            image = image_object[0]
-            count = image_object[1]
-            if Path(image).exists():
+        for file_name, count in image_objects.items():
+            image_full_path = dataset_path / CLEVR_BASE / "images/train" / file_name
+            if Path(image_full_path).exists():
                 # Create the destination for the file: use only the name itself instead of the full path
-                dst_path = dataset_path / count / Path(image).name
-                shutil.move(image, str(dst_path))
+                dst_path = dataset_path / str(count) / Path(file_name).name
+                shutil.move(str(image_full_path), str(dst_path))
 
 
 def cleanup_files(root_path: Path):
     zip_file = root_path / Path(URL).name
-    delete_zip(zip_file)
+    #delete_zip(zip_file)
     old_dir = root_path / CLEVR_BASE
     delete_dir(old_dir)
 
@@ -98,3 +98,5 @@ if __name__ == "__main__":
     download_directory = current_file_path.parent / "data/clevr_count"
     logger.info(f"Download directory is: {download_directory.absolute()}")
     download_and_prepare_clevr_count(download_directory)
+    
+    #TODO:   image = Image.open(img_path).convert("RGB")?????? 
