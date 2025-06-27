@@ -2,8 +2,6 @@ from enum import Enum
 from pathlib import Path
 
 from loguru import logger
-from .utils import (delete_dir, delete_zip, is_already_downloaded,
-                   register_is_downloaded)
 
 from .download_cifar10 import download_and_prepare_cifar10
 from .download_clevr_count import download_and_prepare_clevr_count
