@@ -8,6 +8,7 @@ from .download_rsna import download_and_prepare_rsna
 from .download_taco import download_and_prepare_taco
 from .download_trashnet import download_and_prepare_trashnet
 from .download_clevr_count import download_and_prepare_clevr_count
+from utils import *
 
 
 class DatasetType(Enum):
