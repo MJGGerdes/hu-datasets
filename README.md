@@ -10,12 +10,13 @@ Repository for downloading datasets. Project related to my thesis.
 </p>
 
 
-# CLEVR dataset [🔝 Back to top](#datasets)
+## CLEVR dataset 
+[🔝 Back to top](#datasets)
 
 This project uses a subset of the [CLEVR dataset](https://cs.stanford.edu/people/jcjohns/clevr/).
 
 
-## Original CLEVR Dataset
+### Original CLEVR Dataset
 
 The full dataset consists of:
 
@@ -28,7 +29,7 @@ The full dataset consists of:
   - Object **attributes** (e.g., color, size, material)
   - **Relationships** between objects
 
-## Data setup
+### Data setup
 
 Since this project focuses on limited data, the following steps are applied:
 
@@ -41,18 +42,19 @@ Since this project focuses on limited data, the following steps are applied:
 7. The **temporary extraction directory** is removed after processing.
 
 
-# RSNA Pneumonia Detection [🔝 Back to top](#datasets)
+## RSNA Pneumonia Detection 
+[🔝 Back to top](#datasets)
 
 This project uses a subset of [RSNA Pneumonia Detection Challenge dataset](https://www.kaggle.com/datasets/iamtapendu/rsna-pneumonia-processed-dataset). This dataset enhanced the original dataset by converting the images in DICOM format to PNG format.
 
-## Original RSNA Dataset
+### Original RSNA Dataset
 
 The full dataset consists of:
 - A training set of **24124 images**
 - A validation set of **2560 images**
 
 
-## Data setup
+### Data setup
 
 Since this project focuses on limited data and the structure will follow the ImageFolder dataset structure, the following steps are applied :
 
@@ -69,18 +71,19 @@ Since this project focuses on limited data and the structure will follow the Ima
 5. The original `Training/` folder is deleted.
 6. The downloaded ZIP file is removed.
 
-# TACO [🔝 Back to top](#datasets)
+## TACO 
+[🔝 Back to top](#datasets)
 
 A simplified version of the [TACO dataset](http://tacodataset.org/), focusing only on images that contain **exactly one annotated object**.
 
-## Original TACO Dataset
+### Original TACO Dataset
 
 - Set of 1500 images
 - Annotations which label images in 60 categories which belong to 28 super (top) categories.
 - Multi object images
 
 
-## Data setup
+### Data setup
 
 Since this project focusses on only single-object images, the following steps are applied:
 
@@ -91,34 +94,36 @@ Since this project focusses on only single-object images, the following steps ar
 5. Each valid image is downloaded (if not already present) and saved in a folder named after its supercategory, using only the image filename.
 
 
-# CIFAR10 [🔝 Back to top](#datasets)
+## CIFAR10 
+[🔝 Back to top](#datasets)
 
 A simplified version of the [TACO dataset](http://tacodataset.org/), focusing only on images that contain **exactly one annotated object**.
 
-## Original TACO Dataset
+### Original TACO Dataset
 
 - A training set of **50000 images**
 - A test set of **10000 images**
 
 
-## Data setup
+### Data setup
 
 Since this project focusses on only single-object images, the following steps are applied:
 
 1. Only the test set is downloaded.
 
 
-# Trashnet [🔝 Back to top](#datasets)
+## Trashnet 
+[🔝 Back to top](#datasets)
 
 
 The trashnet dataset is used: https://github.com/garythung/trashnet?tab=readme-ov-file
 
-## Original Trashnet Dataset
+### Original Trashnet Dataset
 
 - A set of **2527 images**
 
 
-## Data setup
+### Data setup
 
 1. The dataset ZIP file is downloaded from a Google Drive link using `gdown` if it doesn't already exist.
 2. All files are extracted. The classes are subfolders already, so nothing to adjust there.
