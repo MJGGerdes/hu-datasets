@@ -19,7 +19,7 @@ The full dataset consists of:
   - Object **attributes** (e.g., color, size, material)
   - **Relationships** between objects
 
-## Limited data setup
+## Data setup
 
 Since this project focuses on limited data, the following steps are applied:
 
@@ -43,7 +43,7 @@ The full dataset consists of:
 - A validation set of **2560 images**
 
 
-## Limited data setup
+## Data setup
 
 Since this project focuses on limited data and the structure will follow the ImageFolder dataset structure, the following steps are applied :
 
@@ -60,34 +60,27 @@ Since this project focuses on limited data and the structure will follow the Ima
 5. The original `Training/` folder is deleted.
 6. The downloaded ZIP file is removed.
 
-# TACO Dataset downloader and preprocessor
+# TACO
 
 A simplified version of the [TACO dataset](http://tacodataset.org/), focusing only on images that contain **exactly one annotated object**.
 
-## What it does
+## Original CLEVR Dataset
 
-1. **Create Dataset Directory**  
-   Ensures the dataset directory (passed as parameter) exists.
+- Set of 1500 images
+- Annotations which label images in 60 categories which belong to 28 super (top) categories.
+- Multi object images
 
-2. **Load `annotations.json`**
-   - If the file doesn't exist in the dataset folder, it is copied from the current source directory.
 
-3. **Parse Annotations**
-   - Extracts `images`, `categories`, and `annotations`.
-   - Creates a mapping of `category_id` to `supercategory`.
-   - Creates a mapping of `image_id` to its annotations.
+## Data setup
 
-4. **Filter**
-   - Keeps only images that contain **exactly one object** (i.e., one annotation).
-   - Combines each valid image with:
-     - Its `file_name`
-     - Its `flickr_url`
-     - The supercategory of the object it contains
+Since this project focusses on only single-object images, the following steps are applied:
 
-5. **Download Images**
-   - Downloads each valid image from its `flickr_url` (if not already downloaded).
-   - Saves the image in a folder named after its supercategory.
-   - The file is saved using only the image filename (e.g., `000006.jpg` instead of `batch_1/000006.jpg`).
+1. `annotations.json` is loaded from the dataset directory or copied from the source if missing.
+2. Annotations are parsed to extract `images`, `categories`, and `annotations`.
+3. A mapping is created from `category_id` to `supercategory`, and from `image_id` to its annotations.
+4. Only images with **exactly one object** are kept, and paired with their `file_name`, `flickr_url`, and supercategory.
+5. Each valid image is downloaded (if not already present) and saved in a folder named after its supercategory, using only the image filename.
+
 
 
 
