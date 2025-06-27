@@ -2,7 +2,7 @@ from pathlib import Path
 
 from loguru import logger
 from torchvision import datasets
-from DatasetDownloader import is_already_downloaded, register_is_downloaded
+from utils import is_already_downloaded, register_is_downloaded
 
 
 def download_and_prepare_cifar10(download_to_path: Path) -> None:

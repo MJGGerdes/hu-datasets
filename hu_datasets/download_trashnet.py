@@ -4,7 +4,7 @@ from pathlib import Path
 import gdown
 from loguru import logger
 from tqdm import tqdm
-from DatasetDownloader import is_already_downloaded, register_is_downloaded
+from utils import is_already_downloaded, register_is_downloaded
 
 
 ZIP_FILE = "trashnet.zip"
