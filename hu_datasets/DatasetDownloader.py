@@ -54,5 +54,5 @@ if __name__ == "__main__":
     # Example usage
     # DatasetDownloader.create(DatasetType.TACO, download_directory)
     # DatasetDownloader.create(DatasetType.TRASHNET, download_directory)
-    # DatasetDownloader.create(DatasetType.CIFAR10, download_directory)
-    DatasetDownloader.create(DatasetType.CLEVR_COUNT, download_directory)
+    DatasetDownloader.create(DatasetType.CIFAR10, download_directory)
+    #DatasetDownloader.create(DatasetType.CLEVR_COUNT, download_directory)

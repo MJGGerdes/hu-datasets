@@ -40,7 +40,7 @@ def extract_zip(dataset_path: Path):
             f for f in zip_ref.namelist() if SCENES_FILE in f or "images/train" in f
         ]
 
-        for file in tqdm(relevant_files, desc="Extracting"):
+        for file in tqdm(relevant_files, len(relevant_files)):
             zip_ref.extract(file, dataset_path)
             if SCENES_FILE in file:
                 break
