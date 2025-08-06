@@ -110,6 +110,8 @@ A simplified version of the [TACO dataset](http://tacodataset.org/), focusing on
 Since this project focusses on only single-object images, the following steps are applied:
 
 1. Only the test set is downloaded.
+2. Subfolders are created based on the classes of the dataset.
+3. The images are retrieved from the batches and stored in the correct subfolder.
 
 
 ## Trashnet 
