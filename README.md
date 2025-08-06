@@ -63,7 +63,7 @@ Since this project focuses on limited data and the structure will follow the Ima
 2. Only the necessary files are extracted:
    - `stage2_train_metadata.csv`
    - All image files in `Training/Images/`
-3. The metadata CSV is processed by removing duplicate patient IDs, keeping entries where `Target == 1`.
+3. The metadata CSV is processed by removing duplicate patient IDs, if a patients has multiple labels, `Target == 1` is kept.
 4. Images are moved into subfolders based on their class label:
    - `"No Lung Opacity / Not Normal"` → `no_opacity/`
    - `"Lung Opacity"` → `lung_opacity/`
