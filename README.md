@@ -112,6 +112,7 @@ Since this project focusses on only single-object images, the following steps ar
 1. Only the test set is downloaded.
 2. Subfolders are created based on the classes of the dataset.
 3. The images are retrieved from the batches and stored in the correct subfolder.
+4. The batches are deleted
 
 
 ## Trashnet 
